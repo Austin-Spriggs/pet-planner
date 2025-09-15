@@ -6,4 +6,4 @@ Weekly time log
 
 ## Week 2
 - Indie Project: about 3.5 hours including data structure markup in notepad
-- 
+- Activities and Exercise: about 6 hours

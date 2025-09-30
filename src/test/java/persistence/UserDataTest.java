@@ -16,13 +16,14 @@ class UserDataTest {
 
     @BeforeEach
     void setUp() {
-        userData = new UserData();
+        Database database = Database.getInstance();
+        database.runSQL("cleanDB.sql");
 
     }
 
     @Test
     void getById() {
-        userData = new UserData();
+        UserData userData = new UserData();
         User retrievedUser = userData.getById(1);
 
         assertEquals("Test", retrievedUser.getFirstName());
@@ -34,7 +35,7 @@ class UserDataTest {
 
     @Test
     void insert() {
-        userData = new UserData();
+        UserData userData = new UserData();
         User userToInsert = new User ("Test", "Test", "test", "test", "test@email.com");
         int insertedUserId = userData.insert(userToInsert);
 

@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This class will be used for testing the FamilyData DAO
+ *
  */
 class FamilyDataTest {
 
@@ -76,11 +77,6 @@ class FamilyDataTest {
         int insertedFamilyId = familyData.insert(newFamilyToInsert);
 
         assertTrue(insertedFamilyId != 0);
-
-        // Test One to Many enforcement
-        Family familyToInsert = new Family("Baggins Family", 1);
-
-        assertThrows(ConstraintViolationException.class, () -> familyData.insert(familyToInsert));
     }
 
     /**

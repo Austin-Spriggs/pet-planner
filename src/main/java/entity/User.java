@@ -23,6 +23,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @ManyToOne
+    @JoinColumn(name = "familyId")
+    private Family family;
+
     /**
      * Default User constructor
      *
@@ -134,5 +138,23 @@ public class User {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Getter for family
+     *
+     * @return family
+     */
+    public Family getFamily() {
+        return family;
+    }
+
+    /**
+     * Setter for family
+     *
+     * @param family
+     */
+    public void setFamily(Family family) {
+        this.family = family;
     }
 }

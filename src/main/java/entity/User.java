@@ -123,23 +123,6 @@ public class User {
         this.username = username;
     }
 
-    /**
-     * Getter for password
-     *
-     * @return password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Setter for password
-     *
-     * @param password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     /**
      * Getter for email

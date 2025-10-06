@@ -64,7 +64,7 @@ class UserDataTest {
      */
     @Test
     void insert() {
-        User userToInsert = new User ("testInsert", "testInsert", "testInsert", "testInsert", "testInsert@email.com");
+        User userToInsert = new User ("testInsert", "testInsert", "testInsert", "testInsert@email.com");
         int insertedUserId = userData.insert(userToInsert);
 
         assertTrue(insertedUserId != 0);

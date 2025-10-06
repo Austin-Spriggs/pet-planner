@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import org.hibernate.exception.ConstraintViolationException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,10 +57,15 @@ class FamilyDataTest {
         int insertedUserId = userData.insert(testUser);
 
         // Test user creates a family
-        Family familyToInsert = new Family("Baggins Family", insertedUserId);
-        int insertedFamilyId = familyData.insert(familyToInsert);
+        Family newFamilyToInsert = new Family("Baggins Family", insertedUserId);
+        int insertedFamilyId = familyData.insert(newFamilyToInsert);
 
         assertTrue(insertedFamilyId != 0);
+
+        // Test One to Many enforcement
+        Family familyToInsert = new Family("Baggins Family", 1);
+
+        assertThrows(ConstraintViolationException.class, () -> familyData.insert(familyToInsert));
     }
 
     @Test

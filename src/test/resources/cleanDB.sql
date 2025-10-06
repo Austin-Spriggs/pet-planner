@@ -10,7 +10,7 @@ CREATE TABLE family
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     familyName  VARCHAR(100) NOT NULL,
-    userId      INT NOT NULL
+    userId      INT NOT NULL UNIQUE
 );
 
 -- Create users table

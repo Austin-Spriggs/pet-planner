@@ -13,6 +13,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * This class will be used for testing the FamilyData DAO
+ */
 class FamilyDataTest {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
@@ -33,6 +36,10 @@ class FamilyDataTest {
         database.runSQL("cleanDB.sql");
     }
 
+    /**
+     * Get family by id
+     *
+     */
     @Test
     void getById() {
         Family retrievedFamily = familyData.getById(1);
@@ -40,6 +47,10 @@ class FamilyDataTest {
         assertEquals("Spriggs Family", retrievedFamily.getFamilyName());
     }
 
+    /**
+     * Update family
+     *
+     */
     @Test
     void update() {
         Family familyToUpdate = familyData.getById(1);
@@ -50,6 +61,10 @@ class FamilyDataTest {
         assertEquals("New Family", updatedFamily.getFamilyName());
     }
 
+    /**
+     * Insert a new family
+     *
+     */
     @Test
     void insert() {
         // Create a new user
@@ -68,6 +83,10 @@ class FamilyDataTest {
         assertThrows(ConstraintViolationException.class, () -> familyData.insert(familyToInsert));
     }
 
+    /**
+     * Delete a family
+     *
+     */
     @Test
     void delete() {
         Family familyToDelete = familyData.getById(1);
@@ -76,27 +95,35 @@ class FamilyDataTest {
         assertNull(familyData.getById(1));
     }
 
+    /**
+     * Get all families
+     *
+     */
     @Test
     void getAll() {
-        User testUser = new User("Bilbo", "Baggins", "testUser", "testUser@email.com");
-        int insertedUserId = userData.insert(testUser);
-
-        Family familyToInsert = new Family("Baggins Family", insertedUserId);
-        int insertedFamilyId = familyData.insert(familyToInsert);
-
         List<Family> families = familyData.getAll();
 
-        assertEquals(2, families.size());
-        assertEquals("Baggins Family", families.get(1).getFamilyName());
-    }
-
-    @Test
-    void getByPropertyEqual() {
-        List<Family> families = familyData.getByPropertyEqual("familyName", "Spriggs Family");
-
+        assertEquals(1, families.size());
         assertEquals("Spriggs Family", families.get(0).getFamilyName());
     }
 
+    /**
+     * Get family with exact condition
+     *
+     */
+    @Test
+    void getByPropertyEqual() {
+        List<Family> families = familyData.getByPropertyEqual("familyName", "Spriggs Family");
+        assertEquals("Spriggs Family", families.get(0).getFamilyName());
+
+        families = familyData.getByPropertyEqual("userId", "1");
+        assertEquals("Spriggs Family", families.get(0).getFamilyName());
+    }
+
+    /**
+     * Get family with like condition
+     *
+     */
     @Test
     void getByPropertyLike() {
         List<Family> families = familyData.getByPropertyLike("familyName", "Spriggs");

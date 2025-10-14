@@ -16,9 +16,6 @@ public class Family {
     @Column(name = "familyName")
     private String familyName;
 
-    @Column(name = "userId")
-    private int userId;
-
     @OneToMany(mappedBy = "family")
     private List<User> members;
 
@@ -26,9 +23,8 @@ public class Family {
 
     }
 
-    public Family(String familyName, int userId) {
+    public Family(String familyName) {
         this.familyName = familyName;
-        this.userId = userId;
     }
 
     /**
@@ -65,24 +61,6 @@ public class Family {
      */
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
-    }
-
-    /**
-     * Getter for userId
-     *
-     * @return userId
-     */
-    public void getUserId(List<User> members) {
-        this.members = members;
-    }
-
-    /**
-     * Setter for userId
-     *
-     * @param userId
-     */
-    public void setUserId(List<User> members) {
-        this.members = members;
     }
 
     /**

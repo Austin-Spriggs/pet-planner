@@ -73,7 +73,7 @@ class FamilyDataTest {
         int insertedUserId = userData.insert(testUser);
 
         // Test user creates a family
-        Family newFamilyToInsert = new Family("Baggins Family", insertedUserId);
+        Family newFamilyToInsert = new Family("Baggins Family");
         int insertedFamilyId = familyData.insert(newFamilyToInsert);
 
         assertTrue(insertedFamilyId != 0);
@@ -110,9 +110,6 @@ class FamilyDataTest {
     @Test
     void getByPropertyEqual() {
         List<Family> families = familyData.getByPropertyEqual("familyName", "Spriggs Family");
-        assertEquals("Spriggs Family", families.get(0).getFamilyName());
-
-        families = familyData.getByPropertyEqual("userId", "1");
         assertEquals("Spriggs Family", families.get(0).getFamilyName());
     }
 

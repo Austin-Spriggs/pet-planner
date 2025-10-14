@@ -9,8 +9,7 @@ DROP TABLE IF EXISTS family;
 CREATE TABLE family
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
-    familyName  VARCHAR(100) NOT NULL,
-    userId      INT NOT NULL UNIQUE
+    familyName  VARCHAR(100) NOT NULL
 );
 
 -- Create users table
@@ -25,8 +24,8 @@ CREATE TABLE users
 );
 
 -- Insert test data
-INSERT INTO family (id, familyName, userId)
-VALUES (1, 'Spriggs Family', 1);
+INSERT INTO family (id, familyName)
+VALUES (1, 'Spriggs Family');
 
 INSERT INTO users (id, firstName, lastName, email, username, familyId)
 VALUES (1, 'Austin', 'Spriggs', 'aspriggs@email.com', 'aspriggs', 1);

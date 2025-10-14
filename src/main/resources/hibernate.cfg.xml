@@ -1,6 +1,6 @@
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">awseb-e-h6jpes4r8q-stack-awsebrdsdatabase-e0aewxnsobwl.cr2em0y4ofo8.us-east-2.rds.amazonaws.com:3306/pet_planner</property>
+        <property name="connection.url">jdbc:mysql://awseb-e-h6jpes4r8q-stack-awsebrdsdatabase-e0aewxnsobwl.cr2em0y4ofo8.us-east-2.rds.amazonaws.com:3306/pet_planner</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
         <property name="connection.username">aspriggs</property>

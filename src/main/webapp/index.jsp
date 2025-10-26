@@ -1,11 +1,14 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:import url="head.jsp" />
-
+<%@include file="head.jsp"%>
+<%@include file="taglib.jsp"%>
 <html>
-    <head>
-        <title>Welcome!</title>
-    </head>
-    <body>
-        <h1>Hello ${user.firstName} ${user.lastName}!</h1>
-    </body>
+<body>
+<c:choose>
+    <c:when test="${empty userName}">
+        <a href = "logIn">Log in</a>
+    </c:when>
+    <c:otherwise>
+        <h3>Welcome ${userName}</h3>
+    </c:otherwise>
+</c:choose>
+</body>
 </html>

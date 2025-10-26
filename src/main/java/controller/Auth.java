@@ -40,7 +40,6 @@ import java.util.stream.Collectors;
 @WebServlet(
         urlPatterns = {"/auth"}
 )
-// TODO if something goes wrong it this process, route to an error page. Currently, errors are only caught and logged.
 /**
  * Inspired by: https://stackoverflow.com/questions/52144721/how-to-get-access-token-using-client-credentials-using-java-code
  */
@@ -84,6 +83,7 @@ public class Auth extends HttpServlet implements PropertiesLoader {
             try {
                 TokenResponse tokenResponse = getToken(authRequest);
                 userName = validate(tokenResponse);
+                logger.info(userName);
                 req.setAttribute("userName", userName);
             } catch (IOException e) {
                 logger.error("Error getting or validating the token: " + e.getMessage(), e);
@@ -131,6 +131,25 @@ public class Auth extends HttpServlet implements PropertiesLoader {
      * @throws IOException
      */
     private String validate(TokenResponse tokenResponse) throws IOException {
+        // ADD THIS DEBUG LOGGING AT THE TOP ↓
+        logger.debug("=== VALIDATE TOKEN DEBUG ===");
+        logger.debug("TokenResponse is null? " + (tokenResponse == null));
+
+        String idToken = tokenResponse.getIdToken();
+        logger.debug("ID Token is null? " + (idToken == null));
+
+        if (idToken != null) {
+            logger.debug("ID Token length: " + idToken.length());
+            logger.debug("ID Token first 100 chars: " + idToken.substring(0, Math.min(100, idToken.length())));
+
+            String[] parts = idToken.split("\\.");
+            logger.debug("ID Token has " + parts.length + " parts (should be 3)");
+
+            if (parts.length >= 1) {
+                logger.debug("Header part length: " + parts[0].length());
+            }
+        }
+
         ObjectMapper mapper = new ObjectMapper();
         CognitoTokenHeader tokenHeader = mapper.readValue(CognitoJWTParser.getHeader(tokenResponse.getIdToken()).toString(), CognitoTokenHeader.class);
 
@@ -188,14 +207,26 @@ public class Auth extends HttpServlet implements PropertiesLoader {
 
         HashMap<String, String> parameters = new HashMap<>();
         parameters.put("grant_type", "authorization_code");
-        parameters.put("client-secret", CLIENT_SECRET);
         parameters.put("client_id", CLIENT_ID);
         parameters.put("code", authCode);
         parameters.put("redirect_uri", REDIRECT_URL);
 
+        // ADD THIS DEBUG LINE
+        logger.debug("Token request redirect_uri: " + REDIRECT_URL);
+        logger.debug("Authorization code: " + authCode);
+
+
         String form = parameters.keySet().stream()
                 .map(key -> key + "=" + URLEncoder.encode(parameters.get(key), StandardCharsets.UTF_8))
                 .collect(Collectors.joining("&"));
+
+        // ADD THIS LOGGING ↓
+        logger.debug("=== TOKEN REQUEST DEBUG ===");
+        logger.debug("Form body: " + form);
+        logger.debug("OAUTH_URL: " + OAUTH_URL);
+        logger.debug("CLIENT_ID from properties: " + CLIENT_ID);
+        logger.debug("REDIRECT_URL from properties: " + REDIRECT_URL);
+        logger.debug("CLIENT_SECRET length: " + CLIENT_SECRET.length());
 
         String encoding = Base64.getEncoder().encodeToString(keys.getBytes());
 

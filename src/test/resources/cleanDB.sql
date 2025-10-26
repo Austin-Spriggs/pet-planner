@@ -35,9 +35,5 @@ ALTER TABLE users
     ADD CONSTRAINT FK_family_id
         FOREIGN KEY (familyId) REFERENCES family(id) ON DELETE SET NULL;
 
-ALTER TABLE family
-    ADD CONSTRAINT FK_family_head
-        FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE;
-
 -- Re-enable foreign key checks
 SET FOREIGN_KEY_CHECKS = 1;

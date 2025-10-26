@@ -16,3 +16,12 @@ Weekly time log
 ## Week 4
 - Indie Project: 3hrs
 - Activities and Exercises: 
+
+## Week 5
+- Indie Project / Exercise: 2hrs
+
+## Week 6
+- Indie Project / Exercise: 1.5hrs 
+
+## Week 7
+- Indie Project / Exercise: 

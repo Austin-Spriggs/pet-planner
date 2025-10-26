@@ -19,17 +19,13 @@ import java.io.IOException;
 @WebServlet(
         urlPatterns = {"/welcome"}
 )
-
 public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        User user = new User("Austin", "Spriggs", "aspriggs", "aspriggs123@gmail.com");
         UserData userData = new UserData();
+        User user = userData.getById(1);
 
-        userData.insert(user);
-
-        req.setAttribute("user", userData.getById(user.getId()));
+        req.setAttribute("user", user);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
         dispatcher.forward(req, resp);
